@@ -6,7 +6,7 @@ import time
 
 # Configuration
 website_url = 'http://137.99.93.113:8080/#/monitor'
-email_sender = 'vert@smtp2go.com'
+email_sender = 'Vert@uconn.edu'
 email_receiver = 'Vert@uconn.edu'
 email_subject = 'Render Farm Down'
 email_body = f'The website {website_url} is down.'
@@ -26,7 +26,7 @@ def send_email():
         server.starttls(context=context)
         server.login(smtp_username, smtp_password)
         server.sendmail(email_sender, email_receiver, msg.as_string())
-    time.sleep(1800)
+    time.sleep(300)
 
 def check_website():
     try:
@@ -39,7 +39,7 @@ def check_website():
     except requests.RequestException:
         send_email()
         print ('Website is down')
-    time.sleep(300)
+    time.sleep(60)
 
 if __name__ == '__main__':
     while True:
