@@ -3,9 +3,19 @@ import requests
 from email.mime.text import MIMEText
 import ssl
 import time
+import logging
+
+# Set up logging
+logging.basicConfig(filename='farmcheck.log', level=logging.INFO, 
+                    format='%(asctime)s:%(levelname)s:%(message)s')
+
+def log_message(message):
+    logging.info(message)
 
 # Configuration
 website_url = 'http://137.99.93.113:8080/#/monitor'
+website_url2 = 'http://137.99.93.113:8080/#/jobs'
+
 email_sender = 'Vert@uconn.edu'
 email_receiver = 'Vert@uconn.edu'
 email_subject = 'Render Farm Down'
@@ -33,16 +43,26 @@ def check_website():
         response = requests.get(website_url)
         if response.status_code != 200:
             send_email()
+            log_message('Website is down')
             print ('Website is down')
         else:
-            print ('Website is up')
+            try:
+                response2 = requests.get(website_url2, timeout=5)
+                if response2.status_code == 200:
+                    log_message('Website is up')
+                    print ('Website is up')
+            except requests.exceptions.ReadTimeout:
+                print("ReadTimeout error: Server did not respond within the specified timeout.")
+                log_message("ReadTimeout error: Server did not respond within the specified timeout.")
+                send_email()
+                log_message('Website is down')
+                print ('Website is down')
     except requests.RequestException:
         send_email()
         print ('Website is down')
+        log_message('Website is down')
     time.sleep(60)
 
 if __name__ == '__main__':
     while True:
         check_website()
-
-
