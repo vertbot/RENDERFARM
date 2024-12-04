@@ -1,0 +1,8 @@
+INFO:root:Hello - World
+INFO:werkzeug:127.0.0.1 - - [04/Dec/2024 15:43:58] "GET /log?message1=Hello&message2=World HTTP/1.1" 200 -
+INFO:root:Hello - World
+INFO:werkzeug:127.0.0.1 - - [04/Dec/2024 15:43:59] "GET /log?message1=Hello&message2=World HTTP/1.1" 200 -
+INFO:root:Hello - World
+INFO:werkzeug:127.0.0.1 - - [04/Dec/2024 15:43:59] "GET /log?message1=Hello&message2=World HTTP/1.1" 200 -
+INFO:root:Hello - World
+INFO:werkzeug:127.0.0.1 - - [04/Dec/2024 15:43:59] "GET /log?message1=Hello&message2=World HTTP/1.1" 200 -
